@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { envs } from "./config/envs";
-import connectionPool from "./database/database";
+import { dbConnection } from "./database/database";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -14,25 +14,16 @@ const app = express();
 app.use(express.json());
 
 // Connect to database
-connectionPool
-  .getConnection()
-  .then((connection) => {
-    console.log("Database connected");
-    connection.release();
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+dbConnection();
 
 // CORS
 app.use(cors());
 
 // Routes
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// rutas crud
+app.use("/auth", require("./routes/auth"));
 
 // Start server
 app.listen(envs.port || 3000, () => {
-  console.log(`🔥 Server running on http://localhost:${envs.port}`);
+  console.log(`🔥 Server running on Port ${envs.port}`);
 });
