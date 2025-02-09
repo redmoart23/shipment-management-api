@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { envs } from "./config/envs";
+import connectionPool from "./database/database";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -11,6 +12,17 @@ const app = express();
 
 // Body parser
 app.use(express.json());
+
+// Connect to database
+connectionPool
+  .getConnection()
+  .then((connection) => {
+    console.log("Database connected");
+    connection.release();
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 // CORS
 app.use(cors());
