@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import UserModel from "../models/UserModel";
+import bcrypt from "bcryptjs";
 
 export const UserRegistration = async (
   req: Request,
@@ -10,31 +11,55 @@ export const UserRegistration = async (
   try {
     const existingUser = await UserModel.findByEmail(email);
     if (existingUser) {
-      res.status(409).json({ ok: false, message: "User already exists" });
+      res.status(409).json({ success: false, message: "User already exists" });
       return;
     }
 
-    await UserModel.create({ name, email, password });
+    const salt = bcrypt.genSaltSync();
+
+    const hashedPassword = bcrypt.hashSync(password, salt);
+
+    const newUser = await UserModel.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
     res.status(201).json({
       ok: true,
       message: "User Registered",
-      name,
-      email,
-      password,
+      name: newUser.name,
+      email: newUser.email,
     });
     return;
   } catch (error) {
     console.log(error);
-    res.status(500).json({ ok: false, message: "Internal Server Error" });
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
 
 export const UserLogin = async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;
 
-  res.json({
-    message: "User Logged In",
-    email,
-    password,
-  });
+  try {
+    const user = await UserModel.findByEmail(email);
+
+    if (!user) {
+      res.status(404).json({ success: false, message: "User not found" });
+      return;
+    }
+
+    const isPasswordValid = bcrypt.compareSync(password, user.password);
+
+    if (!isPasswordValid) {
+      res.status(401).json({ success: false, message: "Invalid credentials" });
+      return;
+    }
+
+    res.status(200).json({
+      message: "User Logged In",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
 };
