@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import UserModel from "../models/UserModel";
 import bcrypt from "bcryptjs";
+import { generateJwt } from "../helpers/jwt";
 
 export const UserRegistration = async (
   req: Request,
@@ -24,11 +25,15 @@ export const UserRegistration = async (
       email,
       password: hashedPassword,
     });
+
+    const token = await generateJwt(newUser.name);
+
     res.status(201).json({
       ok: true,
       message: "User Registered",
       name: newUser.name,
       email: newUser.email,
+      token,
     });
     return;
   } catch (error) {
@@ -55,8 +60,13 @@ export const UserLogin = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
+    const token = await generateJwt(user.name);
+
     res.status(200).json({
       message: "User Logged In",
+      name: user.name,
+      email: user.email,
+      token,
     });
   } catch (error) {
     console.log(error);
