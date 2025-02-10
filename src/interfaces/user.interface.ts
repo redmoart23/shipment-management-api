@@ -1,6 +1,6 @@
-interface UserRegistryInterface {
-    id: number;
+export interface User {
     name: string;
     email: string;
     password: string;
 }
+
