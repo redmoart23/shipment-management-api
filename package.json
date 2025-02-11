@@ -14,6 +14,7 @@
   "type": "commonjs",
   "dependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/uuid": "^10.0.0",
     "bcryptjs": "^2.4.3",
     "coordinadora": "file:",
     "cors": "^2.8.5",
@@ -22,7 +23,9 @@
     "express-validator": "^7.2.1",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.12.0"
+    "mysql2": "^3.12.0",
+    "nanoid": "^5.0.9",
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
