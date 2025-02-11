@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import ClientModel from "../models/ClientModel";
+import redisClient from "../database/cache";
 export const ClientRegistration = async (
   req: Request,
   res: Response
@@ -17,6 +18,8 @@ export const ClientRegistration = async (
   } = req.body;
 
   try {
+    await redisClient.del("clients");
+
     const existingClient = await ClientModel.findByDocument(Numero_Documento);
     if (existingClient) {
       res
@@ -53,7 +56,18 @@ export const ClientRegistration = async (
 
 export const ClientList = async (req: Request, res: Response) => {
   try {
+    const cachedClients = await redisClient.get("clients");
+
+    if (cachedClients) {
+      const clients = JSON.parse(cachedClients);
+      res.status(200).json({ success: true, clients });
+      return;
+    }
+
     const clients = await ClientModel.findAll();
+
+    await redisClient.set("clients", JSON.stringify(clients));
+
     res.status(200).json({ success: true, clients });
   } catch (error) {
     console.log(error);

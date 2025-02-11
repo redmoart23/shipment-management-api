@@ -4,6 +4,7 @@ import { Estados } from "../interfaces/order.interface";
 
 import ClientModel from "../models/ClientModel";
 import { addressValidation } from "../utils/google-maps-service";
+import redisClient from "../database/cache";
 
 const now = new Date();
 
@@ -27,6 +28,8 @@ export const CreateOrder = async (
   const PrecioFinal = PrecioNominal + PrecioNominal * 0.19;
 
   try {
+    await redisClient.del("orders");
+
     const existingClient = await ClientModel.findById(Cliente_id);
     if (!existingClient) {
       res.status(404).json({ success: false, message: "Client not found" });
@@ -69,7 +72,18 @@ export const CreateOrder = async (
 
 export const OrderList = async (req: Request, res: Response) => {
   try {
+    const cachedOrders = await redisClient.get("orders");
+
+    if (cachedOrders) {
+      const orders = JSON.parse(cachedOrders);
+      res.status(200).json({ success: true, orders });
+      return;
+    }
+
     const orders = await OrderModel.findAll();
+
+    await redisClient.set("orders", JSON.stringify(orders));
+
     res.status(200).json({ success: true, orders });
   } catch (error) {
     console.log(error);

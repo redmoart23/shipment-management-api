@@ -1,7 +1,7 @@
  const clients =   [
     {
         "Nombre": "Carlos López",
-        "Tipo_Documento": "Cédula de Ciudadanía",
+        "Tipo_Documento": "CC",
         "Numero_Documento": "1001234567",
         "Telefono_Fijo": "6015678901",
         "Celular": "3105678901",
@@ -12,7 +12,7 @@
     },
     {
         "Nombre": "Mariana González",
-        "Tipo_Documento": "Cédula de Ciudadanía",
+        "Tipo_Documento": "CC",
         "Numero_Documento": "1012345678",
         "Telefono_Fijo": "6042345678",
         "Celular": "3223456789",
@@ -23,7 +23,7 @@
     },
     {
         "Nombre": "Javier Pérez",
-        "Tipo_Documento": "Cédula de Ciudadanía",
+        "Tipo_Documento": "CC",
         "Numero_Documento": "1023456789",
         "Telefono_Fijo": "6053456789",
         "Celular": "3123456789",
@@ -34,7 +34,7 @@
     },
     {
         "Nombre": "Ana Martínez",
-        "Tipo_Documento": "Cédula de Ciudadanía",
+        "Tipo_Documento": "CC",
         "Numero_Documento": "1034567890",
         "Telefono_Fijo": "6024567890",
         "Celular": "3114567890",
@@ -45,7 +45,7 @@
     },
     {
         "Nombre": "Luis Herrera",
-        "Tipo_Documento": "Cédula de Ciudadanía",
+        "Tipo_Documento": "CC",
         "Numero_Documento": "1045678901",
         "Telefono_Fijo": "6085678901",
         "Celular": "3135678901",
@@ -56,7 +56,7 @@
     },
     {
         "Nombre": "Sofía Ramírez",
-        "Tipo_Documento": "Cédula de Ciudadanía",
+        "Tipo_Documento": "CC",
         "Numero_Documento": "1056789012",
         "Telefono_Fijo": "6076789012",
         "Celular": "3146789012",
@@ -67,7 +67,7 @@
     },
     {
         "Nombre": "Fernando Torres",
-        "Tipo_Documento": "Cédula de Ciudadanía",
+        "Tipo_Documento": "CC",
         "Numero_Documento": "1067890123",
         "Telefono_Fijo": "6067890123",
         "Celular": "3157890123",
@@ -78,7 +78,7 @@
     },
     {
         "Nombre": "Valentina Castro",
-        "Tipo_Documento": "Cédula de Ciudadanía",
+        "Tipo_Documento": "CC",
         "Numero_Documento": "1078901234",
         "Telefono_Fijo": "6058901234",
         "Celular": "3168901234",
@@ -89,7 +89,7 @@
     },
     {
         "Nombre": "Ricardo Medina",
-        "Tipo_Documento": "Cédula de Ciudadanía",
+        "Tipo_Documento": "CC",
         "Numero_Documento": "1089012345",
         "Telefono_Fijo": "6049012345",
         "Celular": "3179012345",
@@ -100,7 +100,7 @@
     },
     {
         "Nombre": "Gabriela Fernández",
-        "Tipo_Documento": "Cédula de Ciudadanía",
+        "Tipo_Documento": "CC",
         "Numero_Documento": "1090123456",
         "Telefono_Fijo": "6030123456",
         "Celular": "3180123456",

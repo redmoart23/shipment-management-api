@@ -29,7 +29,7 @@ export const UserRegistration = async (
     const token = await generateJwt(newUser.name);
 
     res.status(201).json({
-      ok: true,
+      success: true,
       message: "User Registered",
       name: newUser.name,
       email: newUser.email,
