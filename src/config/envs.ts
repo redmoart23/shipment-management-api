@@ -9,6 +9,7 @@ interface EnvVars {
   DB_USERNAME: string;
   DB_PASSWORD: string;
   SECRET_JWT_SECRET: string;
+  GOOGLE_MAPS_API_KEY: string;
 }
 
 const envsSchema = joi
@@ -20,6 +21,7 @@ const envsSchema = joi
     DB_USERNAME: joi.string().required(),
     DB_PASSWORD: joi.string().required(),
     SECRET_JWT_SECRET: joi.string().required(),
+    GOOGLE_MAPS_API_KEY: joi.string().required(),
   })
   .unknown(true);
 
@@ -39,4 +41,5 @@ export const envs = {
   dbUsername: envVars.DB_USERNAME,
   dbPassword: envVars.DB_PASSWORD,
   secretJwtSecret: envVars.SECRET_JWT_SECRET,
+  googleMapsApiKey: envVars.GOOGLE_MAPS_API_KEY,
 };
