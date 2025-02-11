@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+
+  redis:
+    image: redis:latest
+    container_name: redis_cache
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - app_network
+
+  api:
+    build: .
+    container_name: node_api
+    restart: always
+    environment:
+      - PORT=${PORT}
+      - SECRET_JWT_SECRET=${SECRET_JWT_SECRET}
+      - GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY}
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - "${PORT}:3000"
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - app_network
+    command: npm run dev
+
+volumes:
+  mysql_data:
+
+networks:
+  app_network:
+    driver: bridge
