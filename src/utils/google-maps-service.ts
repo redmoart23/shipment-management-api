@@ -12,11 +12,5 @@ export const addressValidation = async (
     )},${Ciudad_Destino},Colombia&key=${envs.googleMapsApiKey}`
   );
 
-  console.log(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${formatAddress(
-      Direccion_Destino
-    )},${Ciudad_Destino},Colombia&key=${envs.googleMapsApiKey}`
-  );
-
   return res.json();
 };
